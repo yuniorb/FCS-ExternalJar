@@ -35,13 +35,12 @@ class TestMatcher implements ClassAnnotationMatchProcessor {
 class Scanner {
   public int scan() throws MalformedURLException {
     // TODO Update with correct path
-    final URL jar = new File("/Users/yuniorb/Downloads/FCS-ExternalJar/externalApp/target/externalApp.jar").toURI().toURL();
-    final File file = new File("/Users/yuniorb/Downloads/FCS-ExternalJar/externalApp/target/externalApp-tests.jar");
-    final URL libFile = new File("/Users/yuniorb/Downloads/FCS-ExternalJar/externalLib/target/externalLib.jar").toURI().toURL();
+    final URL jar = new File("../../FCS-ExternalJar/externalApp/target/externalApp.jar").toURI().toURL();
+    final File file = new File("../../FCS-ExternalJar/externalApp/target/externalApp-tests.jar");
 
     URL testJar = file.toURI().toURL();
 
-    ClassLoader loader = new URLClassLoader(new URL[]{jar, testJar, libFile});
+    ClassLoader loader = new URLClassLoader(new URL[]{jar, testJar});
 
     final TestMatcher classAnnotationMatchProcessor = new TestMatcher();
     new FastClasspathScanner("com.foo")
