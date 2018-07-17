@@ -37,14 +37,16 @@ class Scanner {
     // TODO Update with correct path
     final URL jar = new File("/Users/yuniorb/Downloads/FCS-ExternalJar/externalApp/target/externalApp.jar").toURI().toURL();
     final File file = new File("/Users/yuniorb/Downloads/FCS-ExternalJar/externalApp/target/externalApp-tests.jar");
+    final URL libFile = new File("/Users/yuniorb/Downloads/FCS-ExternalJar/externalLib/target/externalLib.jar").toURI().toURL();
 
     URL testJar = file.toURI().toURL();
 
-    ClassLoader loader = new URLClassLoader(new URL[]{jar, testJar});
+    ClassLoader loader = new URLClassLoader(new URL[]{jar, testJar, libFile});
 
     final TestMatcher classAnnotationMatchProcessor = new TestMatcher();
     new FastClasspathScanner("com.foo")
         .overrideClassLoaders(loader)
+        .createClassLoaderForMatchingClasses()
         .ignoreParentClassLoaders()
         .matchClassesWithAnnotation(AnnotationWithClassValue.class, classAnnotationMatchProcessor)
         .verbose()

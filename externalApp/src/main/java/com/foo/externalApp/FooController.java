@@ -2,7 +2,6 @@ package com.foo.externalApp;
 
 import java.awt.print.Pageable;
 import java.util.Collections;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class FooController {
@@ -24,12 +22,17 @@ public class FooController {
 
   private final FooResourceAssembler fooResourceAssembler;
 
+  @Autowired
+  public FooController(FooResourceAssembler fooResourceAssembler) {
+    this.fooResourceAssembler = fooResourceAssembler;
+  }
+
   @RequestMapping(method = RequestMethod.GET, value = "/foo")
   public ResponseEntity<PagedResources<FooResource>> getAllFoo(
       @PageableDefault(size = DEFAULT_PAGE_SIZE, sort = "name", direction = Sort.Direction.ASC) Pageable page,
       PagedResourcesAssembler<Foo> pagedAssembler) {
 
-    Foo foo = Foo.builder().value("Bar").build();
+    Foo foo = new FooBuilder().value("Bar").build();
 
     Page<Foo> items = new PageImpl<>(Collections.singletonList(foo));
     PagedResources<FooResource> resources =

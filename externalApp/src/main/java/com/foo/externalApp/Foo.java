@@ -1,13 +1,18 @@
 package com.foo.externalApp;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@Builder
 public class Foo {
+
+  public Foo(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
 
   private String value;
 }

@@ -9,7 +9,7 @@ public class FooResourceAssembler implements ResourceAssembler<Foo, FooResource>
   @Override
   public FooResource toResource(Foo model) {
 
-    final FooResource resource = FooResource.builder()
+    final FooResource resource = new FooResourceBuilder()
         .value(model.getValue())
         .build();
 
