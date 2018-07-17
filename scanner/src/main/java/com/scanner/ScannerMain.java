@@ -7,7 +7,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import lombok.Getter;
 
 
 public class ScannerMain {
@@ -19,8 +18,11 @@ public class ScannerMain {
 
 class TestMatcher implements ClassAnnotationMatchProcessor {
 
-  @Getter
   private int found;
+
+  public int getFound() {
+    return found;
+  }
 
   @Override
   public void processMatch(Class<?> classWithAnnotation) {
